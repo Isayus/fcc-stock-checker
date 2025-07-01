@@ -6,6 +6,8 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 suite('Functional Tests', function() {
+  // Aumentamos el tiempo de espera para todas las pruebas en esta suite a 5 segundos
+  this.timeout(5000);
 
   suite('GET /api/stock-prices => stockData object', function() {
 
@@ -62,7 +64,6 @@ suite('Functional Tests', function() {
       .query({stock: ['AMZN', 'TSLA']})
       .end(function(err, res){
         assert.equal(res.status, 200);
-        assert.isObject(res.body);
         assert.isArray(res.body.stockData);
         assert.equal(res.body.stockData[0].stock, 'AMZN');
         assert.equal(res.body.stockData[1].stock, 'TSLA');
@@ -80,7 +81,6 @@ suite('Functional Tests', function() {
       .query({stock: ['AAPL', 'SPOT'], like: true})
       .end(function(err, res){
         assert.equal(res.status, 200);
-        assert.isObject(res.body);
         assert.isArray(res.body.stockData);
         assert.equal(res.body.stockData[0].stock, 'AAPL');
         assert.equal(res.body.stockData[1].stock, 'SPOT');

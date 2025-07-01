@@ -1,14 +1,7 @@
 'use strict';
 const fetch = require('node-fetch');
 const crypto = require('crypto');
-const mongoose = require('mongoose');
 const Stock = require('../models.js');
-
-// Connect to database
-mongoose.connect(process.env.DB, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
 
 async function getStockData(stockSymbol) {
   const url = `https://stock-price-checker-proxy.freecodecamp.rocks/v1/stock/${stockSymbol}/quote`;
@@ -93,3 +86,4 @@ module.exports = function (app) {
     });
     
 };
+
