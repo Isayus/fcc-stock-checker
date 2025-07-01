@@ -15,8 +15,10 @@ const app = express();
 // Set up Helmet middleware for Content Security Policy
 app.use(helmet.contentSecurityPolicy({
   directives: {
+    defaultSrc: ["'self'"],
     scriptSrc: ["'self'"],
     styleSrc: ["'self'"],
+    connectSrc: ["'self'", "https://stock-price-checker-proxy.freecodecamp.rocks/"]
   }
 }));
 
