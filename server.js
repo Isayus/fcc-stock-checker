@@ -12,6 +12,14 @@ const connectToDatabase = require('./db/connection.js');
 
 const app = express();
 
+// Set up Helmet middleware for Content Security Policy
+app.use(helmet.contentSecurityPolicy({
+  directives: {
+    scriptSrc: ["'self'"],
+    styleSrc: ["'self'"],
+  }
+}));
+
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({ origin: '*' })); // For FCC testing purposes only
@@ -19,7 +27,7 @@ app.use(cors({ origin: '*' })); // For FCC testing purposes only
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Security
+// Other security middleware
 app.use(helmet.xssFilter());
 app.use(helmet.noSniff());
 app.use(helmet.hidePoweredBy());
@@ -65,3 +73,4 @@ const startServer = async () => {
 startServer();
 
 module.exports = app; //for testing
+
